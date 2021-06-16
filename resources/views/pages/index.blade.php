@@ -28,7 +28,7 @@
             <th scope="row">{{ $recording->type['income'] }}</th>
             <td>{{ $recording->category['title'] }}</td>
             <td>{{ $recording->created_at }}</td>
-            <td>{{ number_format($recording->sum, 0, '', ' ') }}</td>
+            <td>{{ number_format($recording->sum, 2, '.', ' ') }}</td>
             <td>{{ $recording->massege }}</td>
             <td><a href="{{route('table.update' , $recording->id)}}"><button class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
@@ -46,13 +46,13 @@
         </table>
             @if(!isset($sums['Доход']))
                 <p class="text-success">Доход : 0</p>
-                <p class="text-danger">Расход : -{{number_format($sums['Расход'], 0, '', ' ')}}</p>
+                <p class="text-danger">Расход : -{{number_format($sums['Расход'], 2, '.', ' ')}}</p>
                     @elseif(!isset($sums['Расход']))
                         <p class="text-danger">Расход : 0</p>
-                        <p class="text-success">Доход : +{{number_format($sums['Доход'], 0, '', ' ')}}</p>
+                        <p class="text-success">Доход : +{{number_format($sums['Доход'], 2, '.', ' ')}}</p>
                 @else
-                    <p class="text-success">Доход : +{{number_format($sums['Доход'], 0, '', ' ')}}</p>
-                    <p class="text-danger">Расход : -{{number_format($sums['Расход'], 0, '', ' ')}}</p>
+                    <p class="text-success">Доход : +{{number_format($sums['Доход'], 2, '.', ' ')}}</p>
+                    <p class="text-danger">Расход : -{{number_format($sums['Расход'], 2, '.', ' ')}}</p>
             @endif
 
         @else

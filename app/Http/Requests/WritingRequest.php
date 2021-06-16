@@ -24,7 +24,7 @@ class WritingRequest extends FormRequest
     public function rules()
     {
         return [
-            'sum' => 'required|integer',
+            'sum' => 'required|numeric',
         ];
     }
 }

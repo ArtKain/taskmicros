@@ -15,7 +15,7 @@ class CreateRecordingsTable extends Migration
     {
         Schema::create('recordings', function (Blueprint $table) {           
             $table->id();
-            $table->integer('sum');
+            $table->double('sum', 15, 2);
             $table->text('massege')->nullable();
             $table->bigInteger('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
