@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\WritingRequest;
 use App\Models\Recording;
 use App\Models\Type;
+use App\Models\User;
 use App\Models\Category;
 
 
@@ -31,6 +32,7 @@ class DiaryController extends Controller
         $recording->massege = $req->input('massege');
         $recording->category_id = $req->input('category');
         $recording->type_id = Category::find($req->input('category'))->type_id;
+        $recording->user_id = $req->user()->id;
 
         if($req->input('created_at') == null) {
             //
@@ -40,7 +42,7 @@ class DiaryController extends Controller
 
         $recording->save();
 
-        return redirect('/')->with('success' , 'Данные добавлены');
+        return redirect('/home')->with('success' , 'Данные добавлены');
     }
 
     public function CreateType() {

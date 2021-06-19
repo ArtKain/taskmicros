@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\WritingRequest;
 use App\Models\Recording;
 use App\Models\Type;
+use App\Http\Controllers\Auth;
 use App\Models\Category;
 
 class TableController extends Controller
 {
     public function Table() {
-        $record = Recording::all();
+        
+        $record = auth()->user()->recording()->get();
         $type = Type::all();
         $sums = [];
 
@@ -55,14 +57,14 @@ class TableController extends Controller
 
         $recording->save();
 
-        return redirect('/')->with('success' , 'Данные обновлены!');
+        return redirect('/home')->with('success' , 'Данные обновлены!');
         
     }
     
     public function TabDelete($id) {
         Recording::find($id)->delete();
 
-        return redirect('/')->with('success' , 'Данные удалены!');
+        return redirect('/home')->with('success' , 'Данные удалены!');
     }
 
 }
