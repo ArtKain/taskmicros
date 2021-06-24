@@ -9,12 +9,14 @@
 @section('content')
 
     <div class="contener"> 
-        <form  action="{{route('create.type.submit')}}"  method="post">
+        <form  action="{{route('create.category.submit')}}"  method="post">
              @csrf
-                <label class=" col-form-label">Тип : </label><br>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="type" value="{{old('type')}}" id="type" placeholder="Введите тип">
-                </div><br>
+                <label>Выберите тип:</label><br>
+                        <select id="type" name="type" class="form-control">
+                            @foreach($type as $types)
+                                <option value="{{ $types->id }}">{{ $types->income }}</option>
+                            @endforeach
+                        </select><br>
                 <label class=" col-form-label">Категорию :</label><br>
                 <div id="categories">
                     <div class="col-sm-10">

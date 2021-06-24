@@ -19,16 +19,16 @@ Route::redirect('/' , '/home');
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/create' , [DiaryController::class, 'Create'])->name('create');
-    Route::post('/create/submit' , [DiaryController::class, 'Submit'])->name('submit');
+    Route::get('/create' , [DiaryController::class, 'create'])->name('create');
+    Route::post('/create/submit' , [DiaryController::class, 'submit'])->name('submit');
 
-    Route::get('/home' , [TableController::class, 'Table'])->name('index');
+    Route::get('/home' , [TableController::class, 'table'])->name('index');
 
-    Route::get('/{id}/update' , [TableController::class, 'TabUpdate'])->name('table.update');
-    Route::post('/{id}/update' , [TableController::class, 'TabUpdateSubmit'])->name('table.update.submit');
-    Route::get('/{id}/delete' , [TableController::class, 'TabDelete'])->name('table.delete');
+    Route::get('/{id}/update' , [TableController::class, 'tabUpdate'])->name('table.update');
+    Route::post('/{id}/update' , [TableController::class, 'tabUpdateSubmit'])->name('table.update.submit');
+    Route::get('/{id}/delete' , [TableController::class, 'tabDelete'])->name('table.delete');
 
-    Route::get('/create/type' , [DiaryController::class, 'CreateType'])->name('create.type');
-    Route::post('/create/type/submit' , [DiaryController::class, 'CreateTypeSubmit'])->name('create.type.submit');
+    Route::get('/create/type' , [DiaryController::class, 'createType'])->name('create.category');
+    Route::post('/create/type/submit' , [DiaryController::class, 'createCategorySubmit'])->name('create.category.submit');
 });
 

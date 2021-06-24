@@ -13,18 +13,17 @@ use App\Models\Category;
 
 class DiaryController extends Controller
 {
-    public function Create() {
+    public function create() {
 
+        $user = auth()->user();
         $type = Type::all();
-        $categories = Category::all();
 
         return view('pages.create' , [
             'type' => $type,
-            'categories' => $categories,
         ]);
     }
 
-    public function Submit(WritingRequest $req) {
+    public function submit(WritingRequest $req) {
 
         $recording = new Recording();
 
@@ -45,31 +44,36 @@ class DiaryController extends Controller
         return redirect('/home')->with('success' , 'Данные добавлены');
     }
 
-    public function CreateType() {
+    public function createType() {
 
-        return view('pages.type');
+        $type = Type::all();
+
+        return view('pages.type' , compact('type'));
     }
 
-    public function CreateTypeSubmit(Request $request) {
+    public function createCategorySubmit(Request $request) {
 
         $request->validate([
-            'type' => 'required|unique:types,income',
+            'type' => 'required',
             'category' => 'required|array',
-            'category.*' => 'required|string|unique:categories,title',
+            'category.*' => 'required|string',
         ]);
 
-        $type = new Type([
-            'income' => $request->get('type'), 
-        ]);
+        $user = auth()->user();
         
-        $type->save();
-        
-        foreach($request->get('category') as $category) {
-            $type->category()->createMany([
-                ['title' => $category],
-            ]);
+        if ($user->category()->where('title', $request->input('category'))->exists()) {
+            return redirect()->route('create.category')->withErrors(['category' => 'Category already exists']);
+        } else {
+        foreach($request->get('category') as $categories) {
+                $category = new Category();
+                $category->title = $categories;
+                $category->type_id = $request->input('type');
+                $category->user_id = $request->user()->id;
+                $category->save();
         }
-        return redirect('/create')->with('success' , 'Данные типы');
+    }
+
+        return redirect('/create')->with('success' , 'Добавлена категория!');
     }
 
 }

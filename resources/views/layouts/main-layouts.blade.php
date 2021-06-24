@@ -21,7 +21,7 @@
                 <nav class="d-inline-flex mt-2 mt-md-2 ms-md-4">
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{route('create')}}">Заполнение данных</a>
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{route('index')}}">Посмотреть Доходы/Расходы</a>
-                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{route('create.type')}}">Добавить тип</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{route('create.category')}}">Добавить тип</a>
                 </nav>
                 <script src="{{ asset('js/app.js') }}" defer></script>
 

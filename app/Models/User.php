@@ -42,8 +42,12 @@ class User extends Authenticatable
     ];
 
     public function recording() {
-
-        return $this->HasMany(Recording::class);
-        
+        return $this->HasMany(Recording::class);      
     }
+
+    public function category() {
+        return $this->HasMany(Category::class);      
+    }
+
+    
 }

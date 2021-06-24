@@ -45,6 +45,7 @@
             </tr>
         @endforeach 
         </table>
+        @if(count($sums) > 0)
             @if(!isset($sums['Доход']))
                 <p class="text-success">Доход : 0</p>
                 <p class="text-danger">Расход : -{{number_format($sums['Расход'], 2, '.', ' ')}}</p>
@@ -59,9 +60,10 @@
                     @php 
                         $outcome = $sums['Доход'] - $sums['Расход'];
                     @endphp 
-                    <p>Итог : {{$outcome}}</p> 
+                    <p>Итог : {{number_format($outcome, 2, '.', ' ')}}</p> 
                         
             @endif
+        @endif
 
         @else
             <p>Здесь пусто :(</p>

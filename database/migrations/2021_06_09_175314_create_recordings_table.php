@@ -17,12 +17,9 @@ class CreateRecordingsTable extends Migration
             $table->id();
             $table->double('sum', 15, 2);
             $table->text('massege')->nullable();
-            $table->bigInteger('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
-            $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('type_id')->constranined()->onDelete('cascade');
+            $table->foreignId('category_id')->constranined()->onDelete('cascade');
+            $table->foreignId('user_id')->constranined()->onDelete('cascade');
             $table->timestamps();
         });
     }

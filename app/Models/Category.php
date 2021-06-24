@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
+        'title', 'type_id'
       ];
     public function type() {
         return $this->belongsTo(Type::class);    
@@ -17,5 +17,9 @@ class Category extends Model
 
     public function recording() {
         return $this->HasMany(Recording::class);
+    }
+
+    public function users() {
+        return $this->belongsTo(User::class);     
     }
 }

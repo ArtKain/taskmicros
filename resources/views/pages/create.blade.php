@@ -19,7 +19,7 @@
                     <select id="category" name="category" class="form-control">
                         @foreach($type as $types)
                             <optgroup label="{{ $types->income }}">
-                                @foreach($types->category as $category)
+                                @foreach($types->category->where('user_id', auth()->id()) as $category)
                                     <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
                             </optgroup>

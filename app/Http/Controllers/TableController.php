@@ -12,14 +12,15 @@ use App\Models\Category;
 
 class TableController extends Controller
 {
-    public function Table() {
+    public function table() {
+        
         
         $record = auth()->user()->recording()->get();
         $type = Type::all();
         $sums = [];
 
         foreach($type as $types) {
-            $sum = $types->recording()->sum('sum');
+            $sum = $types->recording()->where('user_id' , auth()->id())->sum('sum');
             $sums[$types->income] = $sum;
         } 
 
@@ -30,7 +31,7 @@ class TableController extends Controller
         ]);
     }
 
-    public function TabUpdate($id) {
+    public function tabUpdate($id) {
         $recording = Recording::where('id' , $id)->first();
         $type = Type::all();
 
@@ -40,7 +41,7 @@ class TableController extends Controller
         ]);
     }
 
-    public function TabUpdateSubmit($id , WritingRequest $req) {
+    public function tabUpdateSubmit($id , WritingRequest $req) {
 
         $recording = Recording::find($id);
 
@@ -49,19 +50,13 @@ class TableController extends Controller
         $recording->category_id = $req->input('category');
         $recording->type_id = Category::find($req->input('category'))->type_id;
 
-        if($req->input('created_at') == null) {
-            //
-        } else {
-            $recording->created_at = $req->input('created_at');
-        }
-
         $recording->save();
 
         return redirect('/home')->with('success' , 'Данные обновлены!');
         
     }
     
-    public function TabDelete($id) {
+    public function tabDelete($id) {
         Recording::find($id)->delete();
 
         return redirect('/home')->with('success' , 'Данные удалены!');
